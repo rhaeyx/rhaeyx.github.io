@@ -29,21 +29,33 @@ http://www.templatemo.com/tm-488-classic
             let tax = 0;
 
             if (income < 250000) {
+                tax = "0.00";
                 document.getElementById("rate").value = "0%";
-                document.getElementById("tax").value = "Php 0.00";
             } else if (income < 400000) {
                 tax = (income - 250000) * 0.20;
-
-                document.getElementById("income").value = "Php " + income;
-                document.getElementById("rate").value = "20%";
-                document.getElementById("tax").value = "Php " + tax;
+                document.getElementById("rate").value = "20% of the excess over Php 250,000.00";
+            } else if (income < 800000) {
+                tax = 30000 + (income - 400000) * 0.25;
+                document.getElementById("rate").value = "Php 30,000 + 25% of the excess over Php 400,000.00";
+            } else if (income < 2000000) {
+                tax = 130000 + (income - 800000) * .30;
+                document.getElementById("rate").value = "Php 130,000.00 + 30% of the excess over Php 800,000.00";
+            } else if (income < 8000000) {
+                tax = 490000 + (income - 8000000) * .32;
+                document.getElementById("rate").value = "Php 490,000.00 + 32% of the excess over Php 2,000,000.00";
+            } else {
+                tax = 2410000 + (income - 2000000) * .35;
+                document.getElementById("rate").value = "Php 2,410,000.00 + 35% of the excess over Php 8,000,000.00";
             }
+
+            document.getElementById("income").value = "Php " + income;
+            document.getElementById("tax").value = "Php " + tax;
         }
 
         function clean() {
             document.getElementById("income").value = "";
-            document.getElementById("rate").value = "";
-            document.getElementById("tax").value = "";
+            document.getElementById("rate").value = "0%";
+            document.getElementById("tax").value = "Php 0.00";
         }
 
     </script>
@@ -104,12 +116,12 @@ http://www.templatemo.com/tm-488-classic
                                 <input type="text" id="income" class="form-control" placeholder="Php 0.00" onchange="calculate()" onclick="clean()" required>
                             </div>
                             
-                            <div class="form-group col-lg-3">
+                            <div class="form-group col-lg-6">
                                 <h3 class="tm-gold-text" for="value_to" id="label_to">Rate</h3>
                                 <input type="text" id="rate" class="form-control" placeholder="0%" readonly>
                             </div>
 
-                            <div class="form-group col-lg-3">
+                            <div class="form-group col-lg-12">
                                 <h3 class="tm-gold-text" for="value_to" id="label_to">Income Tax</h3>
                                 <input type="text" id="tax" class="form-control" value="Php 0.00" readonly>
                             </div>
