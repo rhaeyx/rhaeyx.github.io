@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Assignment #1 - Conversion</title>
+    <title>Assignment #4 - Simple Payroll</title>
 <!--
 Classic Template
 http://www.templatemo.com/tm-488-classic
@@ -23,62 +23,118 @@ http://www.templatemo.com/tm-488-classic
           <![endif]-->
 
     <script>
-        function convert_update(v) {
-            clean();
-            if (v === "celsius") {
-                document.getElementById("label_from").innerHTML = "from Celsius";
-                document.getElementById("label_to").innerHTML = "to Fahrenheit";
-                document.getElementById("value_from").placeholder = "0 °C";
-                document.getElementById("value_to").value = "32 °F";
-            } else if (v === "fahrenheit") {
-                document.getElementById("label_from").innerHTML = "from Fahrenheit";
-                document.getElementById("label_to").innerHTML = "to Celsius";
-                document.getElementById("value_from").placeholder = "0 °F";
-                document.getElementById("value_to").value = "-17.78 °C";
-            } else if (v === "meter") {
-                document.getElementById("label_from").innerHTML = "from Meter";
-                document.getElementById("label_to").innerHTML = "to Feet";
-                document.getElementById("value_from").placeholder = "1 m";
-                document.getElementById("value_to").value = "3.2 ft";
-            } else if (v === "feet") {
-                document.getElementById("label_from").innerHTML = "from Feet";
-                document.getElementById("label_to").innerHTML = "to Meter";
-                document.getElementById("value_from").placeholder = "1 ft";
-                document.getElementById("value_to").value = "0.3 m";
+        let employees = [];
+
+        function valid() {
+            let name = document.getElementById("name").value;
+            let days = Number(document.getElementById("days").value);
+            let rate = Number(document.getElementById("rate").value);
+            let deduction = Number(document.getElementById("deduction").value);
+
+            let error = "";
+            if (name === "") {
+                error += "<li>Invalid name.</li>";
             }
+
+            if (days < 1 || isNaN(days)) {
+                error += "<li>Invalid 'days worked' input.</li>";
+            }
+
+            if (rate < 1 || isNaN(rate)) {
+                error += "<li>Invalid 'daily rate' input.</li>";
+            }
+
+            if (deduction < 1 || isNaN(deduction)) {
+                error += "<li>Invalid 'deduction amount' input.</li>";
+            }
+
+            if (error !== "") {
+                document.getElementById("alert").style = "display: block";
+                document.getElementById("alert").innerHTML = "<strong>Error!</strong><ul>" + error + "</ul>";
+            }
+            
+            return true;
         }
 
-        function convert() {
-            let from = document.getElementById("from").value;
-
-            let initial_value = parseInt(document.getElementById("value_from").value);
-
-            let converted_value = 0;
-            if (from === "celsius") {
-                converted_value = (initial_value * 9/5) + 32;
-
-                document.getElementById("value_from").value += " °C";
-                document.getElementById("value_to").value = converted_value + " °F";
-            } else if (from === "fahrenheit") {
-                converted_value = (initial_value - 32) * 5/9;
-
-                document.getElementById("value_from").value += " °F";
-                document.getElementById("value_to").value = converted_value + " °C";
-            } else if (from === "meter") {
-                converted_value = initial_value * 3.281;
-
-                document.getElementById("value_from").value += " m";
-                document.getElementById("value_to").value = converted_value + " ft";
-            } else if (from === "feet") {
-                converted_value = initial_value / 3.281;
-
-                document.getElementById("value_from").value += " ft";
-                document.getElementById("value_to").value = converted_value + " m";
+        function addEmployee() {
+            if (!valid()) {
+                console.log("Invalid");
+                return false;
             }
+
+            let name = document.getElementById("name").value;
+            let days = Number(document.getElementById("days").value);
+            let rate = Number(document.getElementById("rate").value);
+            let deduction = Number(document.getElementById("deduction").value);
+            
+            let gross = days * rate;
+            let net = gross - deduction;
+
+            let employee = {
+                "name" : name,
+                "days" : days,
+                "rate" : rate.toLocaleString(),
+                "deduction" : deduction.toLocaleString(),
+                "gross" : gross.toLocaleString(),
+                "net" : net.toLocaleString()
+            }
+
+            employees.push(employee);
+            clean();
+            renderTable();
+        }
+
+        function removeEmployee() {
+            let index = parseInt(document.getElementById("employee").value) - 1;
+
+            if (isNaN(index)) return false;
+            if (index < 0 || index > employees.length) return false;
+
+            employees.splice(index, 1);
+
+            if (employees.length > 0) renderTable();
+        }
+
+        function clearList() {
+            document.getElementById("employees").innerHTML = "";
+        }
+
+        function renderTable() {
+            let header = `<thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Days Worked</th>
+                        <th scope="col">Daily Rate</th>
+                        <th scope="col">Gross Pay</th>
+                        <th scope="col">Deduction Amount</th>
+                        <th scope="col">Net Pay</th>
+                    </tr>
+                </thead>`;
+
+            let body = "<tbody>";
+            for (let i=0; i<employees.length; i++) {
+                let employee = employees[i];
+                body += "<tr>";
+                body += "<td>" + (i + 1) + "</td>";
+                body += "<td>" + employee['name'] + "</td>";
+                body += "<td>" + employee['days'] + " days</td>";
+                body += "<td>Php " + employee['rate'] + "/day</td>";
+                body += "<td>Php " + employee['gross'] + "</td>";
+                body += "<td>Php " + employee['deduction'] + "</td>";
+                body += "<td>Php " + employee['net'] + "</td>";
+                body += "</tr>";
+            }
+            body += "</tbody>"
+            
+            document.getElementById("employees").innerHTML = header + body;
         }
 
         function clean() {
-            document.getElementById("value_from").value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("days").value = "";
+            document.getElementById("rate").value = "";
+            document.getElementById("deduction").value = "";
         }
 
     </script>
@@ -89,7 +145,7 @@ http://www.templatemo.com/tm-488-classic
         <div class="tm-header">
             <div class="container-fluid">
                 <div class="tm-header-inner">
-                    <a href="#" class="navbar-brand tm-site-name">Classic</a>
+                    <a href="#" class="navbar-brand tm-site-name">Rhyx</a>
                     
                     <!-- navbar -->
                     <nav class="navbar tm-main-nav">
@@ -103,7 +159,7 @@ http://www.templatemo.com/tm-488-classic
                                 <li class="nav-item">
                                     <a href="index.html" class="nav-link">Home</a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a href="assignment1.html" class="nav-link">Assignment #1</a>
                                 </li>
                                 <li class="nav-item">
@@ -112,7 +168,7 @@ http://www.templatemo.com/tm-488-classic
                                 <li class="nav-item">
                                     <a href="assignment3.html" class="nav-link">Assignment #3</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a href="assignment4.html" class="nav-link">Assignment #4</a>
                                 </li>
                             </ul>                        
@@ -130,35 +186,58 @@ http://www.templatemo.com/tm-488-classic
             <div class="container-fluid">
                 <div class="row">
                     <div class="tm-blog-post">
-                        <h1 class="tm-gold-text">Assignment 1: Conversion</h3>
-                        <p>This page will help you convert values from one unit to another.</p>
+                        <h1 class="tm-gold-text">Assignment 4: Simple Payroll</h3>
+                        <p>This page will simulate a payroll list. The user can add or delete employees in a payroll list.</p>
                         
+                        <div class="alert alert-danger" id="alert" role="alert" style="display: none">
+                            
+                        </div>
                         <form class="tm-contact-form">
                             <div class="form-group col-lg-6">
-                                <h3 class="tm-gold-text" for="value_from" id="label_from">from Celsius</h3>
-                                <input type="text" id="value_from" name="value_from" class="form-control" placeholder="0 °C" onchange="convert()" onclick="clean()" required>
+                                <h3 class="tm-gold-text" for="name">Employee Name</h3>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="John Doe" required>
                             </div>
                             
                             <div class="form-group col-lg-6">
-                                <h3 class="tm-gold-text" for="value_to" id="label_to">to Fahrenheit</h3>
-                                <input type="text" id="value_to" name="value_to" class="form-control" placeholder="32 °F" readonly>
+                                <h3 class="tm-gold-text" for="days" >Days Worked</h3>
+                                <input type="text" id="days" name="days" class="form-control" placeholder="30" required>
                             </div>
 
-                            <div class="form-group col-lg-12">
-                                <h3 class="tm-gold-text" for="from">Convert from:</h3>
-
-                                <select name="from" id="from" class="form-control" onchange="convert_update(this.value);">
-                                    <option value="celsius">Celsius</option>
-                                    <option value="fahrenheit">Fahrenheit</option>
-                                    <option value="meter">Meter</option>
-                                    <option value="feet">Feet</option>
-                                </select>
+                            <div class="form-group col-lg-6">
+                                <h3 class="tm-gold-text" for="rate" >Daily Rate</h3>
+                                <input type="text" id="rate" name="rate" class="form-control" placeholder="1000.00" required>
                             </div>
-                        </form>    
+                            
+                            <div class="form-group col-lg-6">
+                                <h3 class="tm-gold-text" for="deduction">Deduction Amount</h3>
+                                <input type="text" id="deduction" name="deduction" class="form-control" placeholder="2000.00" required>
+                            </div>
+                        </form>  
+                        <div class="form-group col-lg-12">
+                            <button class="form-control tm-btn" onclick="addEmployee()">Add Employee</button>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <input type="number" id="employee" name="employee" class="form-control" placeholder="Employee Number to remove">
+                    </div>
+
+                    <div class="col-lg-2">
+                        <button class="form-control tm-btn" onclick="removeEmployee()">Remove</button>
                     </div>  
 
-                    
+                    <div class="col-lg-6">
+                        <button class="form-control tm-btn" onclick="clearList()">Clear List</button>
+                    </div>
                 </div>
+
+                <div class="row tm-margin-t-mid">
+                    <table class="table" id="employees">
+                        
+                    </table>
+                </div>
+                
             </div>
             <div class="row tm-margin-t-big"></div> 
         </section>

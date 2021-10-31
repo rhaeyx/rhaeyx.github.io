@@ -41,14 +41,13 @@ http://www.templatemo.com/tm-488-classic
                 tax = 130000 + (income - 800000) * .30;
                 document.getElementById("rate").value = "Php 130,000.00 + 30% of the excess over Php 800,000.00";
             } else if (income < 8000000) {
-                tax = 490000 + (income - 8000000) * .32;
+                tax = 490000 + (income - 2000000) * .32;
                 document.getElementById("rate").value = "Php 490,000.00 + 32% of the excess over Php 2,000,000.00";
             } else {
                 tax = 2410000 + (income - 2000000) * .35;
                 document.getElementById("rate").value = "Php 2,410,000.00 + 35% of the excess over Php 8,000,000.00";
             }
 
-            document.getElementById("income").value = "Php " + income;
             document.getElementById("tax").value = "Php " + tax;
         }
 
@@ -66,7 +65,7 @@ http://www.templatemo.com/tm-488-classic
         <div class="tm-header">
             <div class="container-fluid">
                 <div class="tm-header-inner">
-                    <a href="#" class="navbar-brand tm-site-name">Classic</a>
+                    <a href="#" class="navbar-brand tm-site-name">Rhyx</a>
                     
                     <!-- navbar -->
                     <nav class="navbar tm-main-nav">
@@ -113,7 +112,7 @@ http://www.templatemo.com/tm-488-classic
                         <form class="tm-contact-form">
                             <div class="form-group col-lg-6">
                                 <h3 class="tm-gold-text" for="value_from" id="label_from">Taxable Income</h3>
-                                <input type="text" id="income" class="form-control" placeholder="Php 0.00" onchange="calculate()" onclick="clean()" required>
+                                <input type="text" id="income" class="form-control" placeholder="Php 0.00" oninput="calculate()" onclick="clean()" required>
                             </div>
                             
                             <div class="form-group col-lg-6">
@@ -126,8 +125,10 @@ http://www.templatemo.com/tm-488-classic
                                 <input type="text" id="tax" class="form-control" value="Php 0.00" readonly>
                             </div>
                         </form>    
-
-                        <h3 class="tm-gold-text">Calculation Table</h3>
+                    </div>  
+                </div>
+                <div class="row tm-margin-t-mid">
+                    <h3 class="tm-gold-text">Calculation Table</h3>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -138,41 +139,37 @@ http://www.templatemo.com/tm-488-classic
                             </thead>
                             <tbody>
                                 <tr>
-                                    <th scope="row">-</th>
-                                    <th scope="row">Php 250,000.00</th>
-                                    <th>0%</th>
+                                    <td scope="row">-</td>
+                                    <td scope="row">Php 250,000.00</td>
+                                    <td>0%</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Php 250,000.00</th>
-                                    <th scope="row">Php 400,000.00</th>
-                                    <th>20% of the excess over Php 250,000.00</th>
+                                    <td scope="row">Php 250,000.00</td>
+                                    <td scope="row">Php 400,000.00</td>
+                                    <td>20% of the excess over Php 250,000.00</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Php 400,000.00</th>
-                                    <th scope="row">Php 800,000.00</th>
-                                    <th>Php 30,000 + 25% of the excess over Php 400,000.00</th>
+                                    <td scope="row">Php 400,000.00</td>
+                                    <td scope="row">Php 800,000.00</td>
+                                    <td>Php 30,000 + 25% of the excess over Php 400,000.00</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Php 800,000.00</th>
-                                    <th scope="row">Php 2,000,000.00</th>
-                                    <th>Php 130,000.00 + 30% of the excess over Php 800,000.00</th>
+                                    <td scope="row">Php 800,000.00</td>
+                                    <td scope="row">Php 2,000,000.00</td>
+                                    <td>Php 130,000.00 + 30% of the excess over Php 800,000.00</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Php 2,000,000.00</th>
-                                    <th scope="row">Php 8,000,000.00</th>
-                                    <th>Php 490,000.00 + 32% of the excess over Php 2,000,000.00</th>
+                                    <td scope="row">Php 2,000,000.00</td>
+                                    <td scope="row">Php 8,000,000.00</td>
+                                    <td>Php 490,000.00 + 32% of the excess over Php 2,000,000.00</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row">Php 8,000,000.00</th>
-                                    <th scope="row">-</th>
-                                    <th>Php 2,410,000.00 + 35% of the excess over Php 8,000,000.00</th>
+                                    <td scope="row">Php 8,000,000.00</td>
+                                    <td scope="row">-</td>
+                                    <td>Php 2,410,000.00 + 35% of the excess over Php 8,000,000.00</td>
                                 </tr>
                             </tbody>
-                        
                         </table>
-                    </div>  
-
-                    
                 </div>
             </div>
             <div class="row tm-margin-t-big"></div> 

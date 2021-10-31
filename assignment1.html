@@ -57,22 +57,18 @@ http://www.templatemo.com/tm-488-classic
             if (from === "celsius") {
                 converted_value = (initial_value * 9/5) + 32;
 
-                document.getElementById("value_from").value += " °C";
                 document.getElementById("value_to").value = converted_value + " °F";
             } else if (from === "fahrenheit") {
                 converted_value = (initial_value - 32) * 5/9;
 
-                document.getElementById("value_from").value += " °F";
                 document.getElementById("value_to").value = converted_value + " °C";
             } else if (from === "meter") {
                 converted_value = initial_value * 3.281;
 
-                document.getElementById("value_from").value += " m";
                 document.getElementById("value_to").value = converted_value + " ft";
             } else if (from === "feet") {
                 converted_value = initial_value / 3.281;
-
-                document.getElementById("value_from").value += " ft";
+                
                 document.getElementById("value_to").value = converted_value + " m";
             }
         }
@@ -89,7 +85,7 @@ http://www.templatemo.com/tm-488-classic
         <div class="tm-header">
             <div class="container-fluid">
                 <div class="tm-header-inner">
-                    <a href="#" class="navbar-brand tm-site-name">Classic</a>
+                    <a href="#" class="navbar-brand tm-site-name">Rhyx</a>
                     
                     <!-- navbar -->
                     <nav class="navbar tm-main-nav">
@@ -136,7 +132,7 @@ http://www.templatemo.com/tm-488-classic
                         <form class="tm-contact-form">
                             <div class="form-group col-lg-6">
                                 <h3 class="tm-gold-text" for="value_from" id="label_from">from Celsius</h3>
-                                <input type="text" id="value_from" name="value_from" class="form-control" placeholder="0 °C" onchange="convert()" onclick="clean()" required>
+                                <input type="text" id="value_from" name="value_from" class="form-control" placeholder="0 °C" oninput="convert()" onclick="clean()" required>
                             </div>
                             
                             <div class="form-group col-lg-6">

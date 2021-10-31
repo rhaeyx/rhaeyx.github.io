@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Assignment #1 - Conversion</title>
+    <title>Assignment #3 - Factorial, Sum and Average</title>
 <!--
 Classic Template
 http://www.templatemo.com/tm-488-classic
@@ -23,62 +23,40 @@ http://www.templatemo.com/tm-488-classic
           <![endif]-->
 
     <script>
-        function convert_update(v) {
-            clean();
-            if (v === "celsius") {
-                document.getElementById("label_from").innerHTML = "from Celsius";
-                document.getElementById("label_to").innerHTML = "to Fahrenheit";
-                document.getElementById("value_from").placeholder = "0 °C";
-                document.getElementById("value_to").value = "32 °F";
-            } else if (v === "fahrenheit") {
-                document.getElementById("label_from").innerHTML = "from Fahrenheit";
-                document.getElementById("label_to").innerHTML = "to Celsius";
-                document.getElementById("value_from").placeholder = "0 °F";
-                document.getElementById("value_to").value = "-17.78 °C";
-            } else if (v === "meter") {
-                document.getElementById("label_from").innerHTML = "from Meter";
-                document.getElementById("label_to").innerHTML = "to Feet";
-                document.getElementById("value_from").placeholder = "1 m";
-                document.getElementById("value_to").value = "3.2 ft";
-            } else if (v === "feet") {
-                document.getElementById("label_from").innerHTML = "from Feet";
-                document.getElementById("label_to").innerHTML = "to Meter";
-                document.getElementById("value_from").placeholder = "1 ft";
-                document.getElementById("value_to").value = "0.3 m";
+        function calculate() {
+            let n = parseInt(document.getElementById("n").value);
+
+            let counter;
+            
+            let factorial = 1;
+            counter = n;
+            while(counter) {
+                factorial *= counter--;
             }
-        }
 
-        function convert() {
-            let from = document.getElementById("from").value;
+            let sum = 0;
+            counter = n;
+            do {
+                sum += counter;
+            } while (counter--)
 
-            let initial_value = parseInt(document.getElementById("value_from").value);
-
-            let converted_value = 0;
-            if (from === "celsius") {
-                converted_value = (initial_value * 9/5) + 32;
-
-                document.getElementById("value_from").value += " °C";
-                document.getElementById("value_to").value = converted_value + " °F";
-            } else if (from === "fahrenheit") {
-                converted_value = (initial_value - 32) * 5/9;
-
-                document.getElementById("value_from").value += " °F";
-                document.getElementById("value_to").value = converted_value + " °C";
-            } else if (from === "meter") {
-                converted_value = initial_value * 3.281;
-
-                document.getElementById("value_from").value += " m";
-                document.getElementById("value_to").value = converted_value + " ft";
-            } else if (from === "feet") {
-                converted_value = initial_value / 3.281;
-
-                document.getElementById("value_from").value += " ft";
-                document.getElementById("value_to").value = converted_value + " m";
+            let total = 0;
+            for (let i=n; i>0; i--) {
+                total += i;
             }
+            let average = total / n;
+            
+            
+            document.getElementById("factorial").value = factorial;
+            document.getElementById("sum").value = sum;
+            document.getElementById("average").value = average;
         }
 
         function clean() {
-            document.getElementById("value_from").value = "";
+            document.getElementById("n").value = "";
+            document.getElementById("factorial").value = "0";
+            document.getElementById("sum").value = "0";
+            document.getElementById("average").value = "0";
         }
 
     </script>
@@ -89,7 +67,7 @@ http://www.templatemo.com/tm-488-classic
         <div class="tm-header">
             <div class="container-fluid">
                 <div class="tm-header-inner">
-                    <a href="#" class="navbar-brand tm-site-name">Classic</a>
+                    <a href="#" class="navbar-brand tm-site-name">Rhyx</a>
                     
                     <!-- navbar -->
                     <nav class="navbar tm-main-nav">
@@ -103,13 +81,13 @@ http://www.templatemo.com/tm-488-classic
                                 <li class="nav-item">
                                     <a href="index.html" class="nav-link">Home</a>
                                 </li>
-                                <li class="nav-item active">
+                                <li class="nav-item">
                                     <a href="assignment1.html" class="nav-link">Assignment #1</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="assignment2.html" class="nav-link">Assignment #2</a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item active">
                                     <a href="assignment3.html" class="nav-link">Assignment #3</a>
                                 </li>
                                 <li class="nav-item">
@@ -130,31 +108,31 @@ http://www.templatemo.com/tm-488-classic
             <div class="container-fluid">
                 <div class="row">
                     <div class="tm-blog-post">
-                        <h1 class="tm-gold-text">Assignment 1: Conversion</h3>
-                        <p>This page will help you convert values from one unit to another.</p>
+                        <h1 class="tm-gold-text">Assignment 3: Factorial, Sum, and Average</h3>
+                        <p>This page will help you calculate the nth-factorial, sum of the first n numbers and the average of the first n numbers.</p>
                         
                         <form class="tm-contact-form">
-                            <div class="form-group col-lg-6">
-                                <h3 class="tm-gold-text" for="value_from" id="label_from">from Celsius</h3>
-                                <input type="text" id="value_from" name="value_from" class="form-control" placeholder="0 °C" onchange="convert()" onclick="clean()" required>
+                            <div class="form-group col-lg-12">
+                                <h3 class="tm-gold-text" for="value_from" id="label_from">Input</h3>
+                                <input type="text" id="n" class="form-control" placeholder="0" onclick="clean()" required>
                             </div>
                             
-                            <div class="form-group col-lg-6">
-                                <h3 class="tm-gold-text" for="value_to" id="label_to">to Fahrenheit</h3>
-                                <input type="text" id="value_to" name="value_to" class="form-control" placeholder="32 °F" readonly>
+                            <div class="form-group col-lg-4">
+                                <h3 class="tm-gold-text">Factorial</h3>
+                                <input type="text" id="factorial" class="form-control" value="0" readonly>
                             </div>
-
-                            <div class="form-group col-lg-12">
-                                <h3 class="tm-gold-text" for="from">Convert from:</h3>
-
-                                <select name="from" id="from" class="form-control" onchange="convert_update(this.value);">
-                                    <option value="celsius">Celsius</option>
-                                    <option value="fahrenheit">Fahrenheit</option>
-                                    <option value="meter">Meter</option>
-                                    <option value="feet">Feet</option>
-                                </select>
+                            <div class="form-group col-lg-4">
+                                <h3 class="tm-gold-text">Sum</h3>
+                                <input type="text" id="sum" class="form-control" value="0" readonly>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <h3 class="tm-gold-text">Average</h3>
+                                <input type="text" id="average" class="form-control" value="0" readonly>
                             </div>
                         </form>    
+                        <div class="form-group col-lg-12">
+                            <button class="tm-btn form-control" onclick="calculate()">Calculate</button>
+                        </div>
                     </div>  
                 </div>
             </div>
