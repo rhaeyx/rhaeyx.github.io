@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment #1 - Conversion</title>
+    <script>
+        function convert_update(v) {
+            clean();
+            if (v === "celsius") {
+                document.getElementById("label_from").innerHTML = "from Celsius";
+                document.getElementById("label_to").innerHTML = "to Fahrenheit";
+                document.getElementById("value_from").placeholder = "0 °C";
+                document.getElementById("value_to").value = "32 °F";
+            } else if (v === "fahrenheit") {
+                document.getElementById("label_from").innerHTML = "from Fahrenheit";
+                document.getElementById("label_to").innerHTML = "to Celsius";
+                document.getElementById("value_from").placeholder = "0 °F";
+                document.getElementById("value_to").value = "-17.78 °C";
+            } else if (v === "meter") {
+                document.getElementById("label_from").innerHTML = "from Meter";
+                document.getElementById("label_to").innerHTML = "to Feet";
+                document.getElementById("value_from").placeholder = "1 m";
+                document.getElementById("value_to").value = "3.2 ft";
+            } else if (v === "feet") {
+                document.getElementById("label_from").innerHTML = "from Feet";
+                document.getElementById("label_to").innerHTML = "to Meter";
+                document.getElementById("value_from").placeholder = "1 ft";
+                document.getElementById("value_to").value = "0.3 m";
+            }
+        }
+
+        function convert() {
+            let from = document.getElementById("from").value;
+
+            let initial_value = parseInt(document.getElementById("value_from").value);
+
+            let converted_value = 0;
+            if (from === "celsius") {
+                converted_value = (initial_value * 9/5) + 32;
+
+                document.getElementById("value_to").value = converted_value + " °F";
+            } else if (from === "fahrenheit") {
+                converted_value = (initial_value - 32) * 5/9;
+
+                document.getElementById("value_to").value = converted_value + " °C";
+            } else if (from === "meter") {
+                converted_value = initial_value * 3.281;
+
+                document.getElementById("value_to").value = converted_value + " ft";
+            } else if (from === "feet") {
+                converted_value = initial_value / 3.281;
+                
+                document.getElementById("value_to").value = converted_value + " m";
+            }
+        }
+
+        function clean() {
+            document.getElementById("value_from").value = "";
+        }
+
+    </script>
+</head>
+
+<body>
+    <h1>Assignment 1: Conversion</h3>
+    
+    <form>
+        <div>
+            <h3 for="value_from" id="label_from">from Celsius</h3>
+            <input type="text" id="value_from" name="value_from" placeholder="0 °C" oninput="convert()" onclick="clean()" required>
+        </div>
+        
+        <div>
+            <h3 for="value_to" id="label_to">to Fahrenheit</h3>
+            <input type="text" id="value_to" name="value_to" placeholder="32 °F" readonly>
+        </div>
+
+        <div>
+            <h3 for="from">Convert from:</h3>
+            <select name="from" id="from" onchange="convert_update(this.value);">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="meter">Meter</option>
+                <option value="feet">Feet</option>
+            </select>
+        </div>
+    </form>    
+</body>
+</html>

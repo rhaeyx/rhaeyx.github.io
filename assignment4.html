@@ -53,7 +53,7 @@ http://www.templatemo.com/tm-488-classic
                 document.getElementById("alert").innerHTML = "<strong>Error!</strong><ul>" + error + "</ul>";
             }
             
-            return true;
+            return (error === "") ? true : false;
         }
 
         function addEmployee() {
@@ -96,6 +96,7 @@ http://www.templatemo.com/tm-488-classic
         }
 
         function clearList() {
+            employees = [];
             document.getElementById("employees").innerHTML = "";
         }
 
