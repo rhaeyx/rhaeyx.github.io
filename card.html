@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card - Casas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+        theme: {
+            extend: {
+            colors: {
+                primary : "#5c76b4",
+                secondary : "#e5eefe",
+                gray: "#757677"
+
+            }
+            }
+        }
+        }
+    </script>
+    
+    <style>
+
+
+        body {
+            background-color: grey;
+        }
+    
+        /* .icon {
+            height: 40px;
+            width: 40px;
+            display: block;
+        } */
+    </style>
+</head>
+<body>
+    <div class="flex flex-row mx-auto mt-32 w-[700px] h-[320px] bg-white rounded-lg">
+        <div class="profile-image">
+            <img class="h-full w-[400px] rounded-l-lg" src="images/profile.jpg">
+        </div>
+
+        <div class="p-6 w-full">
+            <h1 class="text-2xl font-semibold text-primary hover:underline hover:cursor-pointer">Francis Rhaey Casas</h1>
+
+            <div class="flex flex-row mt-4 ">
+                <img class="w-7 h-7" src="images/user-group.png"></img>
+                <p class="ml-1 text-lg text-gray">153 mutual friends including <span class="text-primary hover:underline hover:cursor-pointer">Vaibhav<br> Mittal</span> & <span class="text-primary hover:underline hover:cursor-pointer">Ranjan Tak</span></p>
+            </div>
+
+            <!-- add friend -->
+            <div class="flex flex-row mt-6 w-3/5 h-[60px] bg-secondary rounded-full relative hover:drop-shadow-lg hover:cursor-pointer">
+                <div class="flex flex-row space-x-3 mt-4 ml-8">
+                    <img class="w-7 h-7" src="images/add-user.png">
+                    <span class="text-lg text-primary">Add Friend</span>
+                </div>
+                <div class="flex justify-center items-center w-[60px] h-[60px] absolute right-0 rounded-full bg-primary drop-shadow-lg hover:cursor-pointer">
+                    <img class="w-7 h-7" src="images/plus.png">
+                </div>
+            </div>
+
+            <div class="flex flex-row mt-6">
+                <div class="flex flex-row mr-2 justify-center items-center w-2/5 h-[60px] bg-secondary hover:drop-shadow-lg hover:cursor-pointer rounded-full">
+                    <div class="flex flex-row space-x-3">
+                        <img class="w-7 h-7" src="images/follow-user.png">
+                        <span class="text-lg text-primary">Follow</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-row justify-center items-center w-3/5 h-[60px] bg-primary text-white hover:drop-shadow-lg hover:cursor-pointer rounded-full">
+                    <div class="flex flex-row space-x-3">
+                        <img class="w-7 h-7" src="images/message.png">
+                        <span class="text-lg">Message</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
