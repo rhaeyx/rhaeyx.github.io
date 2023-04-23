@@ -3823,4 +3823,4 @@ function removeCover() {
 	}
 }
 
-setInterval(removeCover, 100);
+setTimeout(removeCover, 1000);
