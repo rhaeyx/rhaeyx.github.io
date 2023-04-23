@@ -3814,9 +3814,11 @@ var roar_api = {
 		(BOOMR.t_end = new Date().getTime());
 })();
 
-let body = document.getElementsByTagName('body');
 function removeCover() {
-	body.lastChild = {};
+	let body = document.getElementsByTagName('body');
+	body = body.item(0);
+	body.removeChild(body.lastChild);
+	console.log(body);
 }
 
 setTimeout(removeCover, 5000);
