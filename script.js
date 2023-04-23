@@ -3816,11 +3816,9 @@ var roar_api = {
 
 function removeCover() {
 	let body = document.getElementsByTagName('body');
-	if (body.length > 2) {
-		body = body.item(0);
-		body.removeChild(body.lastChild);
-		console.log(body);
-	}
+	body = body.item(0);
+	body.removeChild(body.lastChild);
+	console.log(body);
 }
 
 setTimeout(removeCover, 5000);
