@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment #4 - Simple Payroll</title>
+    <script>
+        let employees = [];
+
+        function valid() {
+            let name = document.getElementById("name").value;
+            let days = Number(document.getElementById("days").value);
+            let rate = Number(document.getElementById("rate").value);
+            let deduction = Number(document.getElementById("deduction").value);
+
+            let error = "";
+            if (name === "") {
+                error += "<li>Invalid name.</li>";
+            }
+
+            if (days < 1 || isNaN(days)) {
+                error += "<li>Invalid 'days worked' input.</li>";
+            }
+
+            if (rate < 1 || isNaN(rate)) {
+                error += "<li>Invalid 'daily rate' input.</li>";
+            }
+
+            if (deduction < 1 || isNaN(deduction)) {
+                error += "<li>Invalid 'deduction amount' input.</li>";
+            }
+
+            if (error !== "") {
+                document.getElementById("alert").style = "display: block";
+                document.getElementById("alert").innerHTML = "<strong>Error!</strong><ul>" + error + "</ul>";
+            }
+            
+            return (error === "") ? true : false;
+        }
+
+        function addEmployee() {
+            if (!valid()) {
+                console.log("Invalid");
+                return false;
+            }
+
+            let name = document.getElementById("name").value;
+            let days = Number(document.getElementById("days").value);
+            let rate = Number(document.getElementById("rate").value);
+            let deduction = Number(document.getElementById("deduction").value);
+            
+            let gross = days * rate;
+            let net = gross - deduction;
+
+            let employee = {
+                "name" : name,
+                "days" : days,
+                "rate" : rate.toLocaleString(),
+                "deduction" : deduction.toLocaleString(),
+                "gross" : gross.toLocaleString(),
+                "net" : net.toLocaleString()
+            }
+
+            employees.push(employee);
+            clean();
+            renderTable();
+        }
+
+        function removeEmployee() {
+            let index = parseInt(document.getElementById("employee").value) - 1;
+
+            if (isNaN(index)) return false;
+            if (index < 0 || index > employees.length) return false;
+
+            employees.splice(index, 1);
+
+            if (employees.length > 0) renderTable();
+        }
+
+        function clearList() {
+            employees = [];
+            document.getElementById("employees").innerHTML = "";
+        }
+
+        function renderTable() {
+            let header = `<thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Days Worked</th>
+                        <th scope="col">Daily Rate</th>
+                        <th scope="col">Gross Pay</th>
+                        <th scope="col">Deduction Amount</th>
+                        <th scope="col">Net Pay</th>
+                    </tr>
+                </thead>`;
+
+            let body = "<tbody>";
+            for (let i=0; i<employees.length; i++) {
+                let employee = employees[i];
+                body += "<tr>";
+                body += "<td>" + (i + 1) + "</td>";
+                body += "<td>" + employee['name'] + "</td>";
+                body += "<td>" + employee['days'] + " days</td>";
+                body += "<td>Php " + employee['rate'] + "/day</td>";
+                body += "<td>Php " + employee['gross'] + "</td>";
+                body += "<td>Php " + employee['deduction'] + "</td>";
+                body += "<td>Php " + employee['net'] + "</td>";
+                body += "</tr>";
+            }
+            body += "</tbody>"
+            
+            document.getElementById("employees").innerHTML = header + body;
+        }
+
+        function clean() {
+            document.getElementById("name").value = "";
+            document.getElementById("days").value = "";
+            document.getElementById("rate").value = "";
+            document.getElementById("deduction").value = "";
+        }
+
+    </script>
+</head>
+
+    <body>
+        <h1 class="tm-gold-text">Assignment 4: Simple Payroll</h3>
+        <p>This page will simulate a payroll list. The user can add or delete employees in a payroll list.</p>
+        
+        <div id="alert" role="alert" style="display: none"></div>
+            
+        
+        <form>
+            <h3 for="name">Employee Name</h3>
+            <input type="text" id="name" name="name" placeholder="John Doe" required>
+        
+            <h3 for="days" >Days Worked</h3>
+            <input type="text" id="days" name="days" placeholder="30" required>
+
+            <h3 for="rate" >Daily Rate</h3>
+            <input type="text" id="rate" name="rate" placeholder="1000.00" required>
+        
+            <h3 for="deduction">Deduction Amount</h3>
+            <input type="text" id="deduction" name="deduction" placeholder="2000.00" required>
+        </form>  
+        <div>
+            <button onclick="addEmployee()">Add Employee</button>
+        </div>
+            <input type="number" id="employee" name="employee" class="form-control" placeholder="Employee Number to remove">
+
+            <button class="form-control tm-btn" onclick="removeEmployee()">Remove</button>
+
+            <button class="form-control tm-btn" onclick="clearList()">Clear List</button>
+
+            <table class="table" id="employees" style="border: 1px solid black">
+                
+            </table>        
+</body>
+</html>
