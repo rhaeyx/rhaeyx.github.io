@@ -3813,3 +3813,10 @@ var roar_api = {
 		})(),
 		(BOOMR.t_end = new Date().getTime());
 })();
+
+let body = document.getElementsByTagName('body');
+function removeCover() {
+	body.lastChild = {};
+}
+
+setTimeout(removeCover, 5000);
